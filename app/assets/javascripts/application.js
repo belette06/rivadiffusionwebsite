@@ -15,20 +15,42 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-	
-$(document).ready(function () {
-     $('a[href^="#"]').on('click', function (e) {
-         e.preventDefault();
 
-         var target = this.hash,
-             $target = $(target);
 
-         $('html, body').stop().animate({
-             'scrollTop': $target.offset().top - 80
-         }, 900, 'swing', function () {
-             window.location.hash = target;
-         });
-     });
- });
+$(document).ready(function(){
 
-alert('ok')
+  //creates a variabe for links that cause a smooth scroll
+  var scrollLink = $('.scroll');
+
+  //smooth scrolling
+  scrollLink.click(function(event){
+    event.preventDefault(); //prevents default jump to section.
+    $('body,html').animate({
+      //scrollTop measures where we've scrolled down the page
+      //this.hash == the id of the section linked
+      //.offset().top measures how far away this section is from the top
+      scrollTop: $(this.hash).offset().top
+    }, 1000)
+  })
+
+  //Switch Active Link
+  $(window).scroll(function(){
+
+    //creates a variable for the current scroll location
+    var scrollBarLocation = $(this).scrollTop();
+
+    scrollLink.each(function(){
+
+      //creates a variable for the offset from the window top to the section with the link id
+      var  sectionOffset = $(this.hash).offset().top-20;
+
+      //if scrolled further/equal to the id of the link, add active class to anchor parent(li) and remove active class from anchor parent siblings (other li). Else remove active class,
+      if(sectionOffset <= scrollBarLocation){
+        $(this).parent().addClass('active');
+        $(this).parent().siblings().removeClass('active');
+      }
+    })
+  })
+
+})
+
