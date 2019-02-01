@@ -20,7 +20,7 @@
 $(document).ready(function(){
 
   //creates a variabe for links that cause a smooth scroll
-  var scrollLink = $('.scroll');
+  let scrollLink = $('.scroll');
 
   //smooth scrolling
   scrollLink.click(function(event){
@@ -37,12 +37,12 @@ $(document).ready(function(){
   $(window).scroll(function(){
 
     //creates a variable for the current scroll location
-    var scrollBarLocation = $(this).scrollTop();
+    let scrollBarLocation = $(this).scrollTop();
 
     scrollLink.each(function(){
 
       //creates a variable for the offset from the window top to the section with the link id
-      var  sectionOffset = $(this.hash).offset().top-20;
+      let  sectionOffset = $(this.hash).offset().top-20;
 
       //if scrolled further/equal to the id of the link, add active class to anchor parent(li) and remove active class from anchor parent siblings (other li). Else remove active class,
       if(sectionOffset <= scrollBarLocation){
@@ -53,4 +53,18 @@ $(document).ready(function(){
   })
 
 })
+
+$(window).scroll(function() {
+
+    if ($(window).scrollTop() > 900) {
+        $('nav').addClass('fixed-top');
+
+        
+    } else {
+        $('nav').removeClass('fixed-top');
+            }
+
+});
+
+
 
